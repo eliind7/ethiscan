@@ -1,62 +1,86 @@
 # ethiscan
 
-OSINT-based ethical risk profiler for EU companies, focused on animal welfare scoring. Built for a hackathon.
+OSINT-based sanctions and ESG risk profiler for Swedish companies. PoC for a broader compliance intelligence platform.
 
-## Project Overview
+## Pitch Framing
 
-ethiscan lets users input a company name and receive an ethical risk score based on publicly available data — with a focus on animal testing and animal welfare violations. Output is a dashboard with a score breakdown, source citations, and recent news.
+Supplier compliance screening today is slow, expensive, and fragmented. Sanctions lists are official and machine-readable but nobody aggregates them cleanly with news signals into a usable supplier risk profile.
+
+ethiscan pulls from public sanctions databases and news automatically — no supplier cooperation required, results in seconds.
+
+Starting wedge: sanctions screening for Swedish companies. Expansion: full CSRD pillar coverage, PEP screening, ESG signals.
+
+Target user: procurement or compliance manager who needs to vet suppliers against sanctions obligations and regulatory risk.
+
+## PoC Scope
+
+- Sweden only
+- Hardcoded list of ~10 Swedish companies with their organisationsnummer
+- 3 data sources: OpenSanctions, EU Consolidated Sanctions List, Google News RSS
+- Output: risk score + signal breakdown + news feed + source citations
 
 ## Stack
 
 - **Frontend**: Next.js + Tailwind CSS + Recharts
 - **Backend**: Python FastAPI
-- **LLM**: Claude API (news analysis, summarization, signal extraction)
-- **Scraping**: httpx + BeautifulSoup
-- **Storage**: SQLite (or in-memory for hackathon speed)
+- **LLM**: Claude API (news signal extraction and summarization)
+- **Scraping/fetching**: httpx + BeautifulSoup
+- **Storage**: in-memory (no database needed for PoC)
 
 ## Architecture
 
 ```
-User input (company name)
+Company selected from list (name + organisationsnummer)
         |
    FastAPI backend
         |
   Parallel data fetch
-  /       |        \
-News   Databases  Registries
-  \       |        /
-   LLM analysis (Claude)
-        |
-   Score computation
-        |
-   Next.js dashboard
+  /              |              \
+OpenSanctions  EU Sanctions   Google News RSS
+  \              |              /
+      LLM signal extraction
+              |
+      Score computation
+              |
+      Next.js dashboard
 ```
 
-## Data Sources (free, open)
+## Company List (Sweden)
 
-| Source | Usage |
-|---|---|
-| Leaping Bunny / CCIC | Cruelty-free certifications |
-| PETA Beauty Without Bunnies | Brand cruelty-free status |
-| ECHA (EU Chemicals Agency) | Chemical substance animal test data |
-| EU Cosmetics Regulation DB | Animal test ban compliance |
-| OpenCorporates | EU company registration data |
-| Google News RSS | Recent news scraping |
-| GDELT / MediaCloud | News event data |
-| Wikipedia | Company overview and controversies |
+| Company | Organisationsnummer | Industry |
+|---|---|---|
+| H&M | 556042-7220 | Fashion/retail |
+| Oriflame | 556001-6356 | Cosmetics |
+| Kinnevik | 556047-9742 | Investment |
+| Tele2 | 556410-8917 | Telecom |
+| Veoneer | 559013-0985 | Auto tech |
+| Apoteket | 556138-6532 | Pharmacy |
+| Coop | 716416-1048 | Retail/food |
+| Axfood | 556542-0824 | Food retail |
+| Embracer Group | 556582-6558 | Gaming |
+| Swedbank | 502017-7753 | Finance |
+
+## Data Sources
+
+| Source | What we get | How |
+|---|---|---|
+| OpenSanctions | Aggregated sanctions matches across 100+ lists | REST API (free, no key needed for basic search) |
+| EU Consolidated Sanctions List | Official EU sanctions matches | Free XML download from EUR-Lex |
+| Google News RSS | Recent news mentions of sanctions/investigations | `news.google.com/rss/search?q=COMPANY+sanctions` |
 
 ## Scoring System
 
-Score is 0–100. Lower = more ethical.
+Score is 0–100. Higher = more compliant/lower risk.
 
-| Dimension | Weight |
+| Signal | Score impact |
 |---|---|
-| Known animal testing (cosmetics, pharma, food) | High |
-| Cruelty-free certifications | Negative (positive offset) |
-| EU regulatory violations | High |
-| News mentions of animal abuse/testing | High |
-| Industry sector baseline risk | Medium |
-| Supply chain country exposure | Low modifier |
+| Match on EU/UN/OFAC sanctions list | -40 |
+| Match on secondary/sectoral sanctions list | -20 |
+| Executive or owner match on sanctions list | -30 |
+| News hit mentioning sanctions or investigation | -10 per hit |
+| No matches across all lists | +10 |
+
+Baseline starts at 70. Clamp final score to 0–100.
 
 ## Key Commands
 
@@ -74,22 +98,25 @@ npm run dev
 
 ## Development Notes
 
-- EU companies only (scope constraint)
+- Sweden only for PoC — expansion to full EU is the roadmap story
+- Company list is hardcoded with organisationsnummer — no free-form search
+- OpenSanctions API endpoint: `https://api.opensanctions.org/search/default?q=COMPANY_NAME`
+- EU Sanctions XML: download from `https://eur-lex.europa.eu/legal-content/EN/TXT/XML/?uri=OJ:L_202401627`
+- LLM is used only for news signal extraction — never for generating facts
+- Every score signal must link back to its source URL
 - All data sources must be free and open — no paid APIs
-- LLM is used for signal extraction from unstructured text (news, filings), not for hallucinated facts — always cite sources
-- Score explanations must link back to source data
 
 ## Code Style
 
-- Python: follow PEP8, use async where possible (httpx, FastAPI)
+- Python: PEP8, async where possible (httpx, FastAPI)
 - TypeScript: strict mode on
-- Keep scraping logic isolated in `backend/scrapers/` — one file per source
-- Keep scoring logic isolated in `backend/scoring/`
-- No hardcoded company data — everything must be fetched live or cached
+- Scraping logic isolated in `backend/scrapers/` — one file per source
+- Scoring logic isolated in `backend/scoring/`
 
 ## Hackathon Priorities
 
-1. Working score computation from at least 2–3 real data sources
-2. Clean dashboard with score gauge + breakdown chart
-3. Source citations on every data point
-4. News feed with LLM-extracted animal welfare signals
+1. Working fetch from OpenSanctions API + Google News RSS
+2. Score computation from those signals
+3. Clean dashboard: score gauge + signal breakdown + news feed
+4. Source citation on every signal
+5. Demo-ready: hardcoded companies, no failures live on stage
