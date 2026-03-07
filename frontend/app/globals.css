@@ -1,0 +1,32 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --bg-main: #f0f9ff;
+  --bg-secondary: #ecfeff;
+  --text-main: #0f172a;
+}
+
+body {
+  min-height: 100vh;
+  color: var(--text-main);
+  background:
+    radial-gradient(circle at top left, rgba(14, 116, 144, 0.18), transparent 38%),
+    radial-gradient(circle at 85% 10%, rgba(249, 115, 22, 0.16), transparent 25%),
+    linear-gradient(160deg, var(--bg-main), var(--bg-secondary) 42%, #f8fafc 100%);
+}
+
+@layer components {
+  .panel {
+    @apply rounded-2xl border border-slate-200/80 bg-white/85 shadow-sm backdrop-blur;
+  }
+
+  .panel-title {
+    @apply text-sm font-semibold tracking-wide text-slate-600 uppercase;
+  }
+
+  .metric-chip {
+    @apply rounded-full border border-slate-200 px-3 py-1 text-xs font-medium text-slate-700;
+  }
+}
