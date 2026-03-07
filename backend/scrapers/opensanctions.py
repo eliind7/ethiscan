@@ -1,5 +1,6 @@
 import os
 from dataclasses import dataclass
+from typing import Optional
 
 import httpx
 
@@ -42,7 +43,7 @@ def _severity_from_topics(topics: list[str]) -> int:
     return 1
 
 
-async def search_sanctions(name: str, country: str | None = None) -> list[SanctionsMatch]:
+async def search_sanctions(name: str, country: Optional[str] = None) -> list[SanctionsMatch]:
     """Search all sanctions lists via OpenSanctions default dataset (EU, UN, OFAC, UK + 100 others)."""
     params: dict = {"q": name, "schema": "Organization", "limit": 10}
     if country:
@@ -54,28 +55,32 @@ async def search_sanctions(name: str, country: str | None = None) -> list[Sancti
             params=params,
             headers=_build_headers(),
         )
+        if resp.status_code == 401:
+            raise PermissionError("OpenSanctions API key required. Register free at https://www.opensanctions.org/api/ and set OPENSANCTIONS_API_KEY.")
         resp.raise_for_status()
         data = resp.json()
 
     matches = []
     for result in data.get("results", []):
-        score = result.get("score", 0)
-        if score < SANCTIONS_MIN_SCORE:
+        # Only include confirmed sanctions targets
+        if not result.get("target"):
             continue
 
         topics = result.get("properties", {}).get("topics", [])
-        # Only include results with sanctions-relevant topics
-        if not any(t in topics for t in ["sanction", "sanction.linked", "debarment", "watchlist"]):
+        if not any(t in topics for t in ["sanction", "sanction.linked", "debarment", "watchlist", "export.control"]):
             continue
 
         datasets = result.get("datasets", [])
+        # Use result score if present (name-matching), else 1.0 for confirmed targets
+        confidence = result.get("score", 1.0)
+
         matches.append(SanctionsMatch(
             entity_id=result["id"],
             entity_name=result.get("caption", name),
             source_type="sanctions_list",
             datasets=datasets,
             topics=topics,
-            match_confidence=score,
+            match_confidence=confidence,
             url=f"https://www.opensanctions.org/entities/{result['id']}/",
             snippet=f"Listed on: {', '.join(datasets[:3])}",
             severity=_severity_from_topics(topics),
@@ -92,18 +97,20 @@ async def search_peps(name: str) -> list[SanctionsMatch]:
             params={"q": name, "limit": 10},
             headers=_build_headers(),
         )
+        if resp.status_code == 401:
+            raise PermissionError("OpenSanctions API key required. Register free at https://www.opensanctions.org/api/ and set OPENSANCTIONS_API_KEY.")
         resp.raise_for_status()
         data = resp.json()
 
     matches = []
     for result in data.get("results", []):
-        score = result.get("score", 0)
-        if score < PEPS_MIN_SCORE:
+        if not result.get("target"):
             continue
 
         topics = result.get("properties", {}).get("topics", [])
         datasets = result.get("datasets", [])
         caption = result.get("caption", name)
+        confidence = result.get("score", 1.0)
 
         matches.append(SanctionsMatch(
             entity_id=result["id"],
@@ -111,7 +118,7 @@ async def search_peps(name: str) -> list[SanctionsMatch]:
             source_type="pep",
             datasets=datasets,
             topics=topics,
-            match_confidence=score,
+            match_confidence=confidence,
             url=f"https://www.opensanctions.org/entities/{result['id']}/",
             snippet=f"PEP match: {caption}",
             severity=3,
