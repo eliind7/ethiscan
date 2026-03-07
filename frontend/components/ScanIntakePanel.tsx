@@ -425,7 +425,7 @@ export default function ScanIntakePanel({
                 onChange={(event) => void handleCsvUpload(event)}
                 disabled={isScanningList}
               />
-              {isScanningList ? "Scanning list..." : "Scan Uploaded List"}
+              {isScanningList ? "Scanning list..." : "Upload"}
             </label>
             <Link href="/scans" className="text-sm font-medium text-cyan-700 underline">
               View Uploaded Lists
