@@ -1,8 +1,7 @@
-supplier_name,country,sector_category,website_domain,tier,supplied_components
-Skåne Logistics Component AB,SE,Logistics,skanelogistics.se,Tier 1,Domestic freight and warehousing services
-Baltiska Metaller AB,SE,Metals trader,baltiskametaller.se,Tier 1,Raw aluminum and steel billets for machining
-Östsvenska Stålbolaget AB,SE,Metals trader,ostsvenskastal.se,Tier 2,Specialty steel alloys
-Mälardalen Precision & Elektronik AB,SE,Electronics Distributor,malardalen-precision.se,Tier 2,Microcontrollers and industrial sensors
-Nordiska Mineraler & Jordartsmetaller AB,SE,Mining/Minerals,nordiskamineraler.se,Tier 2,Neodymium magnets for servo motors
-Danubia Heavy Engineering Filial,SE,Machining,danubia-heavy.se,Tier 1,Pre-machined valve casings
-Nordic Circuitry AB,SE,Electronics Manufacturing,nordiccircuitry.se,Tier 1,Custom bare printed circuit boards (PCBs)
+supplier_name,country,sector_category,website_domain,tier,supplied_components,org_number
+Volvo,SE,Manufacturing,volvokoncernen.se,Tier 1,Engines and heavy machinery,5560125790
+Sandvik,SE,Manufacturing,home.sandvik,Tier 1,Mining equipment and machining tools,5560003468
+SSAB AB,SE,Metals trader,ssab.com,Tier 2,Specialty steel alloys for heavy industry,5560163429
+Ericsson,SE,Electronics,ericsson.com,Tier 2,Telecom and sensor components,5560160680
+Saab,SE,Defense,saab.com,Tier 1,Advanced radar and sensor systems,5560360793
+Skanska,SE,Construction,skanska.se,Tier 1,Warehousing and infrastructure,5560004615
