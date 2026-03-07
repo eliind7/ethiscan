@@ -1,6 +1,13 @@
-import type { CreateScanInput, ScanReport, ScanSummary } from "@/lib/types";
+import type {
+  CreateScanBatchInput,
+  CreateScanInput,
+  ScanBatch,
+  ScanReport,
+  ScanSummary
+} from "@/lib/types";
 
 const STORAGE_KEY = "ethiscan_scans";
+const BATCH_STORAGE_KEY = "ethiscan_scan_batches";
 
 function hash(value: string): number {
   let result = 0;
@@ -40,6 +47,22 @@ function loadScans(): ScanReport[] {
 function saveScans(scans: ScanReport[]): void {
   if (typeof window === "undefined") return;
   window.localStorage.setItem(STORAGE_KEY, JSON.stringify(scans));
+}
+
+function loadScanBatches(): ScanBatch[] {
+  if (typeof window === "undefined") return [];
+  const raw = window.localStorage.getItem(BATCH_STORAGE_KEY);
+  if (!raw) return [];
+  try {
+    return JSON.parse(raw) as ScanBatch[];
+  } catch {
+    return [];
+  }
+}
+
+function saveScanBatches(batches: ScanBatch[]): void {
+  if (typeof window === "undefined") return;
+  window.localStorage.setItem(BATCH_STORAGE_KEY, JSON.stringify(batches));
 }
 
 function createMockScan(payload: CreateScanInput, id: number): ScanReport {
@@ -172,4 +195,24 @@ export async function listScans(limit = 12): Promise<ScanSummary[]> {
       status: item.status,
       created_at: item.created_at
     }));
+}
+
+export async function createScanBatch(payload: CreateScanBatchInput): Promise<ScanBatch> {
+  const batches = loadScanBatches();
+  const nextId = batches.length > 0 ? Math.max(...batches.map((batch) => batch.id)) + 1 : 1;
+  const successCount = payload.entries.filter((entry) => entry.status === "done").length;
+  const batch: ScanBatch = {
+    id: nextId,
+    file_name: payload.file_name,
+    created_at: new Date().toISOString(),
+    item_count: payload.entries.length,
+    success_count: successCount,
+    entries: payload.entries
+  };
+  saveScanBatches([batch, ...batches]);
+  return batch;
+}
+
+export async function listScanBatches(limit = 30): Promise<ScanBatch[]> {
+  return loadScanBatches().slice(0, limit);
 }

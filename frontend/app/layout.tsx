@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { IBM_Plex_Sans, Space_Grotesk } from "next/font/google";
+import PortalNavbar from "@/components/PortalNavbar";
 import "./globals.css";
 
 const displayFont = Space_Grotesk({
@@ -26,6 +27,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={`${displayFont.variable} ${bodyFont.variable} font-[var(--font-body)]`}>
+        <PortalNavbar />
         {children}
       </body>
     </html>

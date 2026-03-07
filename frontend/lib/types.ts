@@ -4,6 +4,8 @@ export interface CreateScanInput {
   sector?: string;
 }
 
+export type BatchEntryStatus = "done" | "error";
+
 export interface Subscore {
   category: string;
   score: number;
@@ -48,4 +50,29 @@ export interface ScanReport extends ScanSummary {
   subscores: Subscore[];
   signals: Signal[];
   sources: SourceRecord[];
+}
+
+export interface ScanBatchEntry {
+  company_name: string;
+  organization_number: string | null;
+  status: BatchEntryStatus;
+  scan_id: number | null;
+  score: number | null;
+  grade: string | null;
+  confidence: number | null;
+  error: string | null;
+}
+
+export interface ScanBatch {
+  id: number;
+  file_name: string;
+  created_at: string;
+  item_count: number;
+  success_count: number;
+  entries: ScanBatchEntry[];
+}
+
+export interface CreateScanBatchInput {
+  file_name: string;
+  entries: ScanBatchEntry[];
 }

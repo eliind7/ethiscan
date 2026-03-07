@@ -3,10 +3,9 @@
 import { useCallback, useEffect, useMemo, useState } from "react";
 import { useRouter } from "next/navigation";
 
-import CsvUploadPanel from "@/components/CsvUploadPanel";
 import RecentScans from "@/components/RecentScans";
+import ScanIntakePanel from "@/components/ScanIntakePanel";
 import ScanProgress from "@/components/ScanProgress";
-import SearchPanel from "@/components/SearchPanel";
 import { createScan, listScans } from "@/lib/api";
 import type { CreateScanInput, ScanSummary } from "@/lib/types";
 
@@ -80,12 +79,14 @@ export default function HomePage() {
 
   return (
     <main className="mx-auto flex min-h-screen w-full max-w-7xl flex-col gap-5 px-4 py-6 md:px-8 md:py-8">
-      <CsvUploadPanel onBatchCompleted={loadRecentScans} />
-
       {isRunningScan ? (
         <ScanProgress steps={progressSteps} currentStep={currentStep} />
       ) : (
-        <SearchPanel isSubmitting={isRunningScan} onSubmit={handleCreateScan} />
+        <ScanIntakePanel
+          isSubmittingSingle={isRunningScan}
+          onSubmitSingle={handleCreateScan}
+          onBatchCompleted={loadRecentScans}
+        />
       )}
 
       {runError ? (

@@ -9,8 +9,7 @@ npm run dev
 
 ## UI Components
 
-- Search form (`components/SearchPanel.tsx`)
-- CSV supplier upload + batch scan (`components/CsvUploadPanel.tsx`)
+- Unified scan intake (`components/ScanIntakePanel.tsx`)
 - Pipeline progress (`components/ScanProgress.tsx`)
 - Recent scan list (`components/RecentScans.tsx`)
 - Score hero and grade card (`components/ScoreHero.tsx`)
