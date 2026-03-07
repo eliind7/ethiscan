@@ -1,0 +1,357 @@
+[
+  {
+    "supplier": "Volvo",
+    "action_b": {
+      "canonical_name": "Aktiebolaget Volvo",
+      "company_hits": [
+        {
+          "error": "401 Client Error: Unauthorized for url: https://api.opensanctions.org/search/default?q=Aktiebolaget+Volvo&schema=Company&limit=5"
+        }
+      ],
+      "people_hits": {
+        "Martin Lundstedt (Verkställande direktör)": [
+          {
+            "error": "401 Client Error: Unauthorized for url: https://api.opensanctions.org/search/default?q=Martin+Lundstedt&schema=Person&limit=5"
+          }
+        ],
+        "Pär Göran Mikael Boman (Ordförande)": [
+          {
+            "error": "401 Client Error: Unauthorized for url: https://api.opensanctions.org/search/default?q=P%C3%A4r+G%C3%B6ran+Mikael+Boman&schema=Person&limit=5"
+          }
+        ],
+        "Helena Maria Stjernholm (Ledamot)": [
+          {
+            "error": "401 Client Error: Unauthorized for url: https://api.opensanctions.org/search/default?q=Helena+Maria+Stjernholm&schema=Person&limit=5"
+          }
+        ],
+        "Jan Ove Mikael Carlson (Ledamot)": [
+          {
+            "error": "401 Client Error: Unauthorized for url: https://api.opensanctions.org/search/default?q=Jan+Ove+Mikael+Carlson&schema=Person&limit=5"
+          }
+        ],
+        "Martha Finn Brooks (Ledamot)": [
+          {
+            "error": "401 Client Error: Unauthorized for url: https://api.opensanctions.org/search/default?q=Martha+Finn+Brooks&schema=Person&limit=5"
+          }
+        ],
+        "Martina Merz (Ledamot)": [
+          {
+            "error": "401 Client Error: Unauthorized for url: https://api.opensanctions.org/search/default?q=Martina+Merz&schema=Person&limit=5"
+          }
+        ],
+        "Kurt Åke Jofs (Ledamot)": [
+          {
+            "error": "401 Client Error: Unauthorized for url: https://api.opensanctions.org/search/default?q=Kurt+%C3%85ke+Jofs&schema=Person&limit=5"
+          }
+        ],
+        "Matti Juhani Alahuhta (Ledamot)": [
+          {
+            "error": "401 Client Error: Unauthorized for url: https://api.opensanctions.org/search/default?q=Matti+Juhani+Alahuhta&schema=Person&limit=5"
+          }
+        ],
+        "Eric Albert Elzvik (Ledamot)": [
+          {
+            "error": "401 Client Error: Unauthorized for url: https://api.opensanctions.org/search/default?q=Eric+Albert+Elzvik&schema=Person&limit=5"
+          }
+        ],
+        "Lars Olof Ask (Ledamot)": [
+          {
+            "error": "401 Client Error: Unauthorized for url: https://api.opensanctions.org/search/default?q=Lars+Olof+Ask&schema=Person&limit=5"
+          }
+        ]
+      },
+      "flagged_lists": [],
+      "is_flagged": true
+    }
+  },
+  {
+    "supplier": "Sandvik",
+    "action_b": {
+      "canonical_name": "Sandvik Aktiebolag",
+      "company_hits": [
+        {
+          "error": "401 Client Error: Unauthorized for url: https://api.opensanctions.org/search/default?q=Sandvik+Aktiebolag&schema=Company&limit=5"
+        }
+      ],
+      "people_hits": {
+        "Stefan Ronnie Widing (Verkställande direktör)": [
+          {
+            "error": "401 Client Error: Unauthorized for url: https://api.opensanctions.org/search/default?q=Stefan+Ronnie+Widing&schema=Person&limit=5"
+          }
+        ],
+        "Johan Max Molin (Ordförande)": [
+          {
+            "error": "401 Client Error: Unauthorized for url: https://api.opensanctions.org/search/default?q=Johan+Max+Molin&schema=Person&limit=5"
+          }
+        ],
+        "Helena Maria Stjernholm (Ledamot)": [
+          {
+            "error": "401 Client Error: Unauthorized for url: https://api.opensanctions.org/search/default?q=Helena+Maria+Stjernholm&schema=Person&limit=5"
+          }
+        ],
+        "Kai Bertil Wärn (Ledamot)": [
+          {
+            "error": "401 Client Error: Unauthorized for url: https://api.opensanctions.org/search/default?q=Kai+Bertil+W%C3%A4rn&schema=Person&limit=5"
+          }
+        ],
+        "Susanna Schneeberger (Ledamot)": [
+          {
+            "error": "401 Client Error: Unauthorized for url: https://api.opensanctions.org/search/default?q=Susanna+Schneeberger&schema=Person&limit=5"
+          }
+        ],
+        "Claes Gösta Boustedt (Ledamot)": [
+          {
+            "error": "401 Client Error: Unauthorized for url: https://api.opensanctions.org/search/default?q=Claes+G%C3%B6sta+Boustedt&schema=Person&limit=5"
+          }
+        ],
+        "Eva Marika Fredriksson (Ledamot)": [
+          {
+            "error": "401 Client Error: Unauthorized for url: https://api.opensanctions.org/search/default?q=Eva+Marika+Fredriksson&schema=Person&limit=5"
+          }
+        ],
+        "Nils Fredrik Håf (Ledamot)": [
+          {
+            "error": "401 Client Error: Unauthorized for url: https://api.opensanctions.org/search/default?q=Nils+Fredrik+H%C3%A5f&schema=Person&limit=5"
+          }
+        ]
+      },
+      "flagged_lists": [],
+      "is_flagged": true
+    }
+  },
+  {
+    "supplier": "SSAB AB",
+    "action_b": {
+      "canonical_name": "SSAB AB",
+      "company_hits": [
+        {
+          "error": "401 Client Error: Unauthorized for url: https://api.opensanctions.org/search/default?q=SSAB+AB&schema=Company&limit=5"
+        }
+      ],
+      "people_hits": {
+        "Johnny Erik Johan Sjöström (Extern verkställande direktör)": [
+          {
+            "error": "401 Client Error: Unauthorized for url: https://api.opensanctions.org/search/default?q=Johnny+Erik+Johan+Sj%C3%B6str%C3%B6m&schema=Person&limit=5"
+          }
+        ],
+        "John Lennart Kaleb Evrell (Ordförande)": [
+          {
+            "error": "401 Client Error: Unauthorized for url: https://api.opensanctions.org/search/default?q=John+Lennart+Kaleb+Evrell&schema=Person&limit=5"
+          }
+        ],
+        "Petra Irene Einarsson (Ledamot)": [
+          {
+            "error": "401 Client Error: Unauthorized for url: https://api.opensanctions.org/search/default?q=Petra+Irene+Einarsson&schema=Person&limit=5"
+          }
+        ],
+        "Bernard Jean Louis Fontana (Ledamot)": [
+          {
+            "error": "401 Client Error: Unauthorized for url: https://api.opensanctions.org/search/default?q=Bernard+Jean+Louis+Fontana&schema=Person&limit=5"
+          }
+        ],
+        "Marie Grönborg (Ledamot)": [
+          {
+            "error": "401 Client Error: Unauthorized for url: https://api.opensanctions.org/search/default?q=Marie+Gr%C3%B6nborg&schema=Person&limit=5"
+          }
+        ],
+        "Georg Christian Mikael Mäkinen (Ledamot)": [
+          {
+            "error": "401 Client Error: Unauthorized for url: https://api.opensanctions.org/search/default?q=Georg+Christian+Mikael+M%C3%A4kinen&schema=Person&limit=5"
+          }
+        ],
+        "Sven-Erik Rosén (Ledamot)": [
+          {
+            "error": "401 Client Error: Unauthorized for url: https://api.opensanctions.org/search/default?q=Sven-Erik+Ros%C3%A9n&schema=Person&limit=5"
+          }
+        ],
+        "Maija Kaarina Strandberg (Ledamot)": [
+          {
+            "error": "401 Client Error: Unauthorized for url: https://api.opensanctions.org/search/default?q=Maija+Kaarina+Strandberg&schema=Person&limit=5"
+          }
+        ],
+        "Ulf Robert Holmström (Ledamot)": [
+          {
+            "error": "401 Client Error: Unauthorized for url: https://api.opensanctions.org/search/default?q=Ulf+Robert+Holmstr%C3%B6m&schema=Person&limit=5"
+          }
+        ]
+      },
+      "flagged_lists": [],
+      "is_flagged": true
+    }
+  },
+  {
+    "supplier": "Ericsson",
+    "action_b": {
+      "canonical_name": "Telefonaktiebolaget LM Ericsson",
+      "company_hits": [
+        {
+          "error": "401 Client Error: Unauthorized for url: https://api.opensanctions.org/search/default?q=Telefonaktiebolaget+LM+Ericsson&schema=Company&limit=5"
+        }
+      ],
+      "people_hits": {
+        "Erik Börje Ekholm (Verkställande direktör)": [
+          {
+            "error": "401 Client Error: Unauthorized for url: https://api.opensanctions.org/search/default?q=Erik+B%C3%B6rje+Ekholm&schema=Person&limit=5"
+          }
+        ],
+        "Jan Ove Mikael Carlson (Ordförande)": [
+          {
+            "error": "401 Client Error: Unauthorized for url: https://api.opensanctions.org/search/default?q=Jan+Ove+Mikael+Carlson&schema=Person&limit=5"
+          }
+        ],
+        "Jon Fredrik Baksaas (Ledamot)": [
+          {
+            "error": "401 Client Error: Unauthorized for url: https://api.opensanctions.org/search/default?q=Jon+Fredrik+Baksaas&schema=Person&limit=5"
+          }
+        ],
+        "Kristin Sue Rinne (Ledamot)": [
+          {
+            "error": "401 Client Error: Unauthorized for url: https://api.opensanctions.org/search/default?q=Kristin+Sue+Rinne&schema=Person&limit=5"
+          }
+        ],
+        "Christy May Wyatt (Ledamot)": [
+          {
+            "error": "401 Client Error: Unauthorized for url: https://api.opensanctions.org/search/default?q=Christy+May+Wyatt&schema=Person&limit=5"
+          }
+        ],
+        "Ulf Göran Rosberg (Ledamot)": [
+          {
+            "error": "401 Client Error: Unauthorized for url: https://api.opensanctions.org/search/default?q=Ulf+G%C3%B6ran+Rosberg&schema=Person&limit=5"
+          }
+        ],
+        "Karl Gunnar Åberg (Ledamot)": [
+          {
+            "error": "401 Client Error: Unauthorized for url: https://api.opensanctions.org/search/default?q=Karl+Gunnar+%C3%85berg&schema=Person&limit=5"
+          }
+        ],
+        "Eric A Elzvik (Ledamot)": [
+          {
+            "error": "401 Client Error: Unauthorized for url: https://api.opensanctions.org/search/default?q=Eric+A+Elzvik&schema=Person&limit=5"
+          }
+        ],
+        "Marachel Latonja Knight (Ledamot)": [
+          {
+            "error": "401 Client Error: Unauthorized for url: https://api.opensanctions.org/search/default?q=Marachel+Latonja+Knight&schema=Person&limit=5"
+          }
+        ]
+      },
+      "flagged_lists": [],
+      "is_flagged": true
+    }
+  },
+  {
+    "supplier": "Saab",
+    "action_b": {
+      "canonical_name": "SAAB Aktiebolag",
+      "company_hits": [
+        {
+          "error": "401 Client Error: Unauthorized for url: https://api.opensanctions.org/search/default?q=SAAB+Aktiebolag&schema=Company&limit=5"
+        }
+      ],
+      "people_hits": {
+        "Nils Gunnar Magnus Gustafsson (Ledamot)": [
+          {
+            "error": "401 Client Error: Unauthorized for url: https://api.opensanctions.org/search/default?q=Nils+Gunnar+Magnus+Gustafsson&schema=Person&limit=5"
+          }
+        ],
+        "Bo Anders Ynnerman (Ledamot)": [
+          {
+            "error": "401 Client Error: Unauthorized for url: https://api.opensanctions.org/search/default?q=Bo+Anders+Ynnerman&schema=Person&limit=5"
+          }
+        ],
+        "Lena Ann Margret Erixon (Ledamot)": [
+          {
+            "error": "401 Client Error: Unauthorized for url: https://api.opensanctions.org/search/default?q=Lena+Ann+Margret+Erixon&schema=Person&limit=5"
+          }
+        ],
+        "Claes Vilhelm Sebastian Tham (Ledamot)": [
+          {
+            "error": "401 Client Error: Unauthorized for url: https://api.opensanctions.org/search/default?q=Claes+Vilhelm+Sebastian+Tham&schema=Person&limit=5"
+          }
+        ],
+        "Tina Mikkelsen (Ledamot)": [
+          {
+            "error": "401 Client Error: Unauthorized for url: https://api.opensanctions.org/search/default?q=Tina+Mikkelsen&schema=Person&limit=5"
+          }
+        ],
+        "Anders Rasool Carp (Extern vice verkställande direktör)": [
+          {
+            "error": "401 Client Error: Unauthorized for url: https://api.opensanctions.org/search/default?q=Anders+Rasool+Carp&schema=Person&limit=5"
+          }
+        ],
+        "Danica Kragic Jensfelt (Ledamot)": [
+          {
+            "error": "401 Client Error: Unauthorized for url: https://api.opensanctions.org/search/default?q=Danica+Kragic+Jensfelt&schema=Person&limit=5"
+          }
+        ],
+        "Olof Henrik Gudmund Henriksson (Ledamot)": [
+          {
+            "error": "401 Client Error: Unauthorized for url: https://api.opensanctions.org/search/default?q=Olof+Henrik+Gudmund+Henriksson&schema=Person&limit=5"
+          }
+        ]
+      },
+      "flagged_lists": [],
+      "is_flagged": true
+    }
+  },
+  {
+    "supplier": "Skanska",
+    "action_b": {
+      "canonical_name": "Skanska AB",
+      "company_hits": [
+        {
+          "error": "401 Client Error: Unauthorized for url: https://api.opensanctions.org/search/default?q=Skanska+AB&schema=Company&limit=5"
+        }
+      ],
+      "people_hits": {
+        "Anders Malte Danielsson (Extern verkställande direktör)": [
+          {
+            "error": "401 Client Error: Unauthorized for url: https://api.opensanctions.org/search/default?q=Anders+Malte+Danielsson&schema=Person&limit=5"
+          }
+        ],
+        "Hans Torsten Gunnar Biörck (Ordförande)": [
+          {
+            "error": "401 Client Error: Unauthorized for url: https://api.opensanctions.org/search/default?q=Hans+Torsten+Gunnar+Bi%C3%B6rck&schema=Person&limit=5"
+          }
+        ],
+        "Per Henrik Sjölund (Ledamot)": [
+          {
+            "error": "401 Client Error: Unauthorized for url: https://api.opensanctions.org/search/default?q=Per+Henrik+Sj%C3%B6lund&schema=Person&limit=5"
+          }
+        ],
+        "Catherine Susan Marcus (Ledamot)": [
+          {
+            "error": "401 Client Error: Unauthorized for url: https://api.opensanctions.org/search/default?q=Catherine+Susan+Marcus&schema=Person&limit=5"
+          }
+        ],
+        "Jayne Eleanor McGivern (Ledamot)": [
+          {
+            "error": "401 Client Error: Unauthorized for url: https://api.opensanctions.org/search/default?q=Jayne+Eleanor+McGivern&schema=Person&limit=5"
+          }
+        ],
+        "Mats Peter Hederos (Ledamot)": [
+          {
+            "error": "401 Client Error: Unauthorized for url: https://api.opensanctions.org/search/default?q=Mats+Peter+Hederos&schema=Person&limit=5"
+          }
+        ],
+        "Lars Fredrik Norrman (Ledamot)": [
+          {
+            "error": "401 Client Error: Unauthorized for url: https://api.opensanctions.org/search/default?q=Lars+Fredrik+Norrman&schema=Person&limit=5"
+          }
+        ],
+        "Åsa Marie Söderström Winberg (Ledamot)": [
+          {
+            "error": "401 Client Error: Unauthorized for url: https://api.opensanctions.org/search/default?q=%C3%85sa+Marie+S%C3%B6derstr%C3%B6m+Winberg&schema=Person&limit=5"
+          }
+        ],
+        "Erik Martin Lindqvist (Ledamot)": [
+          {
+            "error": "401 Client Error: Unauthorized for url: https://api.opensanctions.org/search/default?q=Erik+Martin+Lindqvist&schema=Person&limit=5"
+          }
+        ]
+      },
+      "flagged_lists": [],
+      "is_flagged": true
+    }
+  }
+]

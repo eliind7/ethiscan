@@ -120,7 +120,19 @@ if __name__ == "__main__":
     
     verified_data = process_csv(csv_file_path)
     
-    # For readability in the terminal, we will just print the extracted identity payloads
+    # Save results to disk so Action B can read them without re-calling the API
+    with open("action_a_results.json", "w", encoding="utf-8") as f:
+        # Strip the raw_data field to keep the cache lean
+        clean = []
+        for item in verified_data:
+            entry = dict(item)
+            if entry.get("action_a_result", {}).get("raw_data"):
+                entry["action_a_result"] = {k: v for k, v in entry["action_a_result"].items() if k != "raw_data"}
+            clean.append(entry)
+        json.dump(clean, f, indent=2, ensure_ascii=False)
+    print("[✓] Results cached to action_a_results.json")
+
+    # Print extracted identity profiles
     print("\n=== Action A: Extracted Identity Profiles ===")
     for item in verified_data:
         supplier = item.get("input_supplier")
