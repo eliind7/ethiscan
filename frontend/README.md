@@ -12,6 +12,7 @@ npm run dev
 - Unified scan intake (`components/ScanIntakePanel.tsx`)
 - Pipeline progress (`components/ScanProgress.tsx`)
 - Recent scan list (`components/RecentScans.tsx`)
+- Reports page with filters/export/audit (`app/reports/page.tsx`)
 - Score hero and grade card (`components/ScoreHero.tsx`)
 - Subscore progress bars (`components/SubscoreGrid.tsx`)
 - Recharts breakdown (`components/RiskBreakdownChart.tsx`)

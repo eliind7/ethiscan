@@ -52,6 +52,11 @@ export interface ScanReport extends ScanSummary {
   sources: SourceRecord[];
 }
 
+export interface ReportLibraryItem extends ScanSummary {
+  source_count: number;
+  signal_count: number;
+}
+
 export interface ScanBatchEntry {
   company_name: string;
   organization_number: string | null;

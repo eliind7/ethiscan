@@ -1,6 +1,7 @@
 import type {
   CreateScanBatchInput,
   CreateScanInput,
+  ReportLibraryItem,
   ScanBatch,
   ScanReport,
   ScanSummary
@@ -194,6 +195,24 @@ export async function listScans(limit = 12): Promise<ScanSummary[]> {
       confidence: item.confidence,
       status: item.status,
       created_at: item.created_at
+    }));
+}
+
+export async function listReportLibrary(limit = 200): Promise<ReportLibraryItem[]> {
+  return loadScans()
+    .slice(0, limit)
+    .map((item) => ({
+      id: item.id,
+      company_name: item.company_name,
+      country: item.country,
+      sector: item.sector,
+      score: item.score,
+      grade: item.grade,
+      confidence: item.confidence,
+      status: item.status,
+      created_at: item.created_at,
+      source_count: item.sources.length,
+      signal_count: item.signals.length
     }));
 }
 

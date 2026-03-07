@@ -7,7 +7,7 @@ import { useEffect, useRef, useState } from "react";
 const NAV_ITEMS = [
   { label: "Dashboard", href: "/" },
   { label: "Scans", href: "/scans" },
-  { label: "Reports", href: "/?view=reports" }
+  { label: "Reports", href: "/reports" }
 ];
 
 const PROFILE_ITEMS = ["Account", "Settings", "Privacy", "Logout"];
@@ -38,17 +38,20 @@ export default function PortalNavbar() {
         </Link>
 
         <nav className="hidden items-center gap-7 lg:flex">
-          {NAV_ITEMS.map((item) => (
-            <Link
-              key={item.label}
-              href={item.href}
-              className={`text-sm font-medium transition ${
-                pathname === item.href ? "text-slate-900" : "text-slate-700 hover:text-slate-900"
-              }`}
-            >
-              {item.label}
-            </Link>
-          ))}
+          {NAV_ITEMS.map((item) => {
+            const isActive = item.href === "/" ? pathname === "/" : pathname.startsWith(item.href);
+            return (
+              <Link
+                key={item.label}
+                href={item.href}
+                className={`text-sm font-medium transition ${
+                  isActive ? "text-slate-900" : "text-slate-700 hover:text-slate-900"
+                }`}
+              >
+                {item.label}
+              </Link>
+            );
+          })}
         </nav>
 
         <div className="flex items-center gap-2 md:gap-3">
