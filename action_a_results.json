@@ -1,0 +1,145 @@
+[
+    {
+        "input_supplier": "Volvo",
+        "input_country": "SE",
+        "input_org_number": "5560125790",
+        "action_a_result": {
+            "found": true,
+            "identity": {
+                "canonical_name": "Aktiebolaget Volvo",
+                "org_number": "556012-5790",
+                "location": "Göteborg",
+                "key_people": [
+                    "Martin Lundstedt (Verkställande direktör)",
+                    "Pär Göran Mikael Boman (Ordförande)",
+                    "Helena Maria Stjernholm (Ledamot)",
+                    "Jan Ove Mikael Carlson (Ledamot)",
+                    "Martha Finn Brooks (Ledamot)",
+                    "Martina Merz (Ledamot)",
+                    "Kurt Åke Jofs (Ledamot)",
+                    "Matti Juhani Alahuhta (Ledamot)",
+                    "Eric Albert Elzvik (Ledamot)",
+                    "Lars Olof Ask (Ledamot)"
+                ]
+            }
+        }
+    },
+    {
+        "input_supplier": "Sandvik",
+        "input_country": "SE",
+        "input_org_number": "5560003468",
+        "action_a_result": {
+            "found": true,
+            "identity": {
+                "canonical_name": "Sandvik Aktiebolag",
+                "org_number": "556000-3468",
+                "location": "Stockholm",
+                "key_people": [
+                    "Stefan Ronnie Widing (Verkställande direktör)",
+                    "Johan Max Molin (Ordförande)",
+                    "Helena Maria Stjernholm (Ledamot)",
+                    "Kai Bertil Wärn (Ledamot)",
+                    "Susanna Schneeberger (Ledamot)",
+                    "Claes Gösta Boustedt (Ledamot)",
+                    "Eva Marika Fredriksson (Ledamot)",
+                    "Nils Fredrik Håf (Ledamot)"
+                ]
+            }
+        }
+    },
+    {
+        "input_supplier": "SSAB AB",
+        "input_country": "SE",
+        "input_org_number": "5560163429",
+        "action_a_result": {
+            "found": true,
+            "identity": {
+                "canonical_name": "SSAB AB",
+                "org_number": "556016-3429",
+                "location": "Stockholm",
+                "key_people": [
+                    "Johnny Erik Johan Sjöström (Extern verkställande direktör)",
+                    "John Lennart Kaleb Evrell (Ordförande)",
+                    "Petra Irene Einarsson (Ledamot)",
+                    "Bernard Jean Louis Fontana (Ledamot)",
+                    "Marie Grönborg (Ledamot)",
+                    "Georg Christian Mikael Mäkinen (Ledamot)",
+                    "Sven-Erik Rosén (Ledamot)",
+                    "Maija Kaarina Strandberg (Ledamot)",
+                    "Ulf Robert Holmström (Ledamot)"
+                ]
+            }
+        }
+    },
+    {
+        "input_supplier": "Ericsson",
+        "input_country": "SE",
+        "input_org_number": "5560160680",
+        "action_a_result": {
+            "found": true,
+            "identity": {
+                "canonical_name": "Telefonaktiebolaget LM Ericsson",
+                "org_number": "556016-0680",
+                "location": "Stockholm",
+                "key_people": [
+                    "Erik Börje Ekholm (Verkställande direktör)",
+                    "Jan Ove Mikael Carlson (Ordförande)",
+                    "Jon Fredrik Baksaas (Ledamot)",
+                    "Kristin Sue Rinne (Ledamot)",
+                    "Christy May Wyatt (Ledamot)",
+                    "Ulf Göran Rosberg (Ledamot)",
+                    "Karl Gunnar Åberg (Ledamot)",
+                    "Eric A Elzvik (Ledamot)",
+                    "Marachel Latonja Knight (Ledamot)"
+                ]
+            }
+        }
+    },
+    {
+        "input_supplier": "Saab",
+        "input_country": "SE",
+        "input_org_number": "5560360793",
+        "action_a_result": {
+            "found": true,
+            "identity": {
+                "canonical_name": "SAAB Aktiebolag",
+                "org_number": "556036-0793",
+                "location": "Linköping",
+                "key_people": [
+                    "Nils Gunnar Magnus Gustafsson (Ledamot)",
+                    "Bo Anders Ynnerman (Ledamot)",
+                    "Lena Ann Margret Erixon (Ledamot)",
+                    "Claes Vilhelm Sebastian Tham (Ledamot)",
+                    "Tina Mikkelsen (Ledamot)",
+                    "Anders Rasool Carp (Extern vice verkställande direktör)",
+                    "Danica Kragic Jensfelt (Ledamot)",
+                    "Olof Henrik Gudmund Henriksson (Ledamot)"
+                ]
+            }
+        }
+    },
+    {
+        "input_supplier": "Skanska",
+        "input_country": "SE",
+        "input_org_number": "5560004615",
+        "action_a_result": {
+            "found": true,
+            "identity": {
+                "canonical_name": "Skanska AB",
+                "org_number": "556000-4615",
+                "location": "Stockholm",
+                "key_people": [
+                    "Anders Malte Danielsson (Extern verkställande direktör)",
+                    "Hans Torsten Gunnar Biörck (Ordförande)",
+                    "Per Henrik Sjölund (Ledamot)",
+                    "Catherine Susan Marcus (Ledamot)",
+                    "Jayne Eleanor McGivern (Ledamot)",
+                    "Mats Peter Hederos (Ledamot)",
+                    "Lars Fredrik Norrman (Ledamot)",
+                    "Åsa Marie Söderström Winberg (Ledamot)",
+                    "Erik Martin Lindqvist (Ledamot)"
+                ]
+            }
+        }
+    }
+]
