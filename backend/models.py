@@ -9,6 +9,7 @@ class SupplierInput(BaseModel):
     website_domain: Optional[str] = None
     tier: Optional[str] = None
     internal_id: Optional[str] = None
+    org_number: Optional[str] = None
 
 
 class EvidenceItem(BaseModel):
@@ -29,8 +30,16 @@ class SubScores(BaseModel):
     adverse_media: int
 
 
+class PersonScreened(BaseModel):
+    name: str
+    role: str
+    pep_hit: bool = False
+    match_confidence: Optional[float] = None
+
+
 class SupplierResult(BaseModel):
     supplier_name: str
+    canonical_name: Optional[str] = None
     country: str
     sector_category: str
     internal_id: Optional[str] = None
@@ -39,3 +48,4 @@ class SupplierResult(BaseModel):
     flags: list[str]
     sub_scores: SubScores
     evidence_pack: list[EvidenceItem]
+    key_people_screened: list[PersonScreened] = []

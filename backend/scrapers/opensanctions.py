@@ -6,9 +6,7 @@ import httpx
 
 OPENSANCTIONS_BASE = "https://api.opensanctions.org"
 
-# Minimum match confidence to include a result
-SANCTIONS_MIN_SCORE = 0.5
-PEPS_MIN_SCORE = 0.6
+PEPS_MIN_SCORE = 0.7
 
 
 @dataclass
@@ -49,16 +47,21 @@ async def search_sanctions(name: str, country: Optional[str] = None) -> list[San
     if country:
         params["filter:country"] = country.lower()
 
-    async with httpx.AsyncClient(timeout=10.0) as client:
-        resp = await client.get(
-            f"{OPENSANCTIONS_BASE}/search/default",
-            params=params,
-            headers=_build_headers(),
-        )
-        if resp.status_code == 401:
-            raise PermissionError("OpenSanctions API key required. Register free at https://www.opensanctions.org/api/ and set OPENSANCTIONS_API_KEY.")
-        resp.raise_for_status()
-        data = resp.json()
+    try:
+        async with httpx.AsyncClient(timeout=10.0) as client:
+            resp = await client.get(
+                f"{OPENSANCTIONS_BASE}/search/default",
+                params=params,
+                headers=_build_headers(),
+            )
+            if resp.status_code == 401:
+                raise PermissionError("OpenSanctions API key required. Register free at https://www.opensanctions.org/api/ and set OPENSANCTIONS_API_KEY.")
+            resp.raise_for_status()
+            data = resp.json()
+    except PermissionError:
+        raise
+    except Exception:
+        return []
 
     matches = []
     for result in data.get("results", []):
@@ -89,29 +92,40 @@ async def search_sanctions(name: str, country: Optional[str] = None) -> list[San
     return matches
 
 
-async def search_peps(name: str) -> list[SanctionsMatch]:
-    """Search PEP (Politically Exposed Persons) dataset for individuals linked to this company."""
-    async with httpx.AsyncClient(timeout=10.0) as client:
-        resp = await client.get(
-            f"{OPENSANCTIONS_BASE}/search/peps",
-            params={"q": name, "limit": 10},
-            headers=_build_headers(),
-        )
-        if resp.status_code == 401:
-            raise PermissionError("OpenSanctions API key required. Register free at https://www.opensanctions.org/api/ and set OPENSANCTIONS_API_KEY.")
-        resp.raise_for_status()
-        data = resp.json()
+async def search_peps(name: str, role: Optional[str] = None) -> list[SanctionsMatch]:
+    """Search PEP (Politically Exposed Persons) dataset for an individual by name."""
+    params = {"q": name, "schema": "Person", "limit": 5}
+
+    try:
+        async with httpx.AsyncClient(timeout=10.0) as client:
+            resp = await client.get(
+                f"{OPENSANCTIONS_BASE}/search/peps",
+                params=params,
+                headers=_build_headers(),
+            )
+            if resp.status_code == 401:
+                raise PermissionError("OpenSanctions API key required. Register free at https://www.opensanctions.org/api/ and set OPENSANCTIONS_API_KEY.")
+            resp.raise_for_status()
+            data = resp.json()
+    except PermissionError:
+        raise
+    except Exception:
+        return []
 
     matches = []
     for result in data.get("results", []):
         if not result.get("target"):
             continue
 
+        confidence = result.get("score", 1.0)
+        if confidence < PEPS_MIN_SCORE:
+            continue
+
         topics = result.get("properties", {}).get("topics", [])
         datasets = result.get("datasets", [])
         caption = result.get("caption", name)
-        confidence = result.get("score", 1.0)
 
+        role_info = f" ({role})" if role else ""
         matches.append(SanctionsMatch(
             entity_id=result["id"],
             entity_name=caption,
@@ -120,7 +134,7 @@ async def search_peps(name: str) -> list[SanctionsMatch]:
             topics=topics,
             match_confidence=confidence,
             url=f"https://www.opensanctions.org/entities/{result['id']}/",
-            snippet=f"PEP match: {caption}",
+            snippet=f"PEP match: {caption}{role_info}",
             severity=3,
         ))
 
