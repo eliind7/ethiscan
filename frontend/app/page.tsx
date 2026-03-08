@@ -34,10 +34,10 @@ export default function HomePage() {
   const [isRunningScan, setIsRunningScan] = useState(false);
   const [currentStep, setCurrentStep] = useState(0);
 
-  const loadRecentScans = useCallback(() => {
+  const loadRecentScans = useCallback(async () => {
     setLoadingScans(true);
     try {
-      setRecentScans(listHistory());
+      setRecentScans(await listHistory());
     } finally {
       setLoadingScans(false);
     }

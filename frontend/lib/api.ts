@@ -1,3 +1,4 @@
+import { supabase } from "@/lib/supabase";
 import type {
   BatchEntry,
   ScanBatch,
@@ -6,9 +7,7 @@ import type {
   SupplierResult,
 } from "@/lib/types";
 
-const API_BASE = "http://localhost:8000";
-const HISTORY_KEY = "ethiscan_history";
-const BATCH_KEY = "ethiscan_batches";
+const API_BASE = process.env.NEXT_PUBLIC_API_URL ?? "http://localhost:8000";
 
 // --- Real backend calls ---
 
@@ -29,71 +28,56 @@ export async function scanSingle(input: SupplierInput): Promise<SupplierResult> 
   return results[0];
 }
 
-// --- Local history (localStorage) ---
+// --- Scan history (Supabase) ---
 
-function loadHistory(): ScanHistoryEntry[] {
-  if (typeof window === "undefined") return [];
-  try {
-    return JSON.parse(window.localStorage.getItem(HISTORY_KEY) ?? "[]");
-  } catch {
-    return [];
-  }
+export async function addToHistory(result: SupplierResult): Promise<ScanHistoryEntry> {
+  const { data, error } = await supabase
+    .from("scan_history")
+    .insert({ supplier_name: result.supplier_name, result })
+    .select()
+    .single();
+  if (error) throw new Error(error.message);
+  return { id: data.id, result: data.result, scanned_at: data.scanned_at };
 }
 
-function saveHistory(entries: ScanHistoryEntry[]): void {
-  if (typeof window === "undefined") return;
-  window.localStorage.setItem(HISTORY_KEY, JSON.stringify(entries));
+export async function getHistoryEntry(id: number): Promise<ScanHistoryEntry | null> {
+  const { data, error } = await supabase
+    .from("scan_history")
+    .select()
+    .eq("id", id)
+    .single();
+  if (error || !data) return null;
+  return { id: data.id, result: data.result, scanned_at: data.scanned_at };
 }
 
-export function addToHistory(result: SupplierResult): ScanHistoryEntry {
-  const history = loadHistory();
-  const id = history.length > 0 ? Math.max(...history.map((e) => e.id)) + 1 : 1;
-  const entry: ScanHistoryEntry = {
-    id,
-    result,
-    scanned_at: new Date().toISOString(),
-  };
-  saveHistory([entry, ...history]);
-  return entry;
+export async function listHistory(limit = 20): Promise<ScanHistoryEntry[]> {
+  const { data, error } = await supabase
+    .from("scan_history")
+    .select()
+    .order("scanned_at", { ascending: false })
+    .limit(limit);
+  if (error || !data) return [];
+  return data.map((row) => ({ id: row.id, result: row.result, scanned_at: row.scanned_at }));
 }
 
-export function getHistoryEntry(id: number): ScanHistoryEntry | null {
-  return loadHistory().find((e) => e.id === id) ?? null;
+// --- Batch tracking (Supabase) ---
+
+export async function saveBatch(fileName: string, entries: BatchEntry[]): Promise<ScanBatch> {
+  const { data, error } = await supabase
+    .from("scan_batches")
+    .insert({ file_name: fileName, entries })
+    .select()
+    .single();
+  if (error) throw new Error(error.message);
+  return { id: data.id, file_name: data.file_name, created_at: data.created_at, entries: data.entries };
 }
 
-export function listHistory(limit = 20): ScanHistoryEntry[] {
-  return loadHistory().slice(0, limit);
-}
-
-// --- Batch tracking (localStorage) ---
-
-function loadBatches(): ScanBatch[] {
-  if (typeof window === "undefined") return [];
-  try {
-    return JSON.parse(window.localStorage.getItem(BATCH_KEY) ?? "[]");
-  } catch {
-    return [];
-  }
-}
-
-function saveBatches(batches: ScanBatch[]): void {
-  if (typeof window === "undefined") return;
-  window.localStorage.setItem(BATCH_KEY, JSON.stringify(batches));
-}
-
-export function saveBatch(fileName: string, entries: BatchEntry[]): ScanBatch {
-  const batches = loadBatches();
-  const id = batches.length > 0 ? Math.max(...batches.map((b) => b.id)) + 1 : 1;
-  const batch: ScanBatch = {
-    id,
-    file_name: fileName,
-    created_at: new Date().toISOString(),
-    entries,
-  };
-  saveBatches([batch, ...batches]);
-  return batch;
-}
-
-export function listBatches(limit = 30): ScanBatch[] {
-  return loadBatches().slice(0, limit);
+export async function listBatches(limit = 30): Promise<ScanBatch[]> {
+  const { data, error } = await supabase
+    .from("scan_batches")
+    .select()
+    .order("created_at", { ascending: false })
+    .limit(limit);
+  if (error || !data) return [];
+  return data.map((row) => ({ id: row.id, file_name: row.file_name, created_at: row.created_at, entries: row.entries }));
 }

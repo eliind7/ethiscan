@@ -12,8 +12,7 @@ export default function ScansPage() {
 
   useEffect(() => {
     setLoading(true);
-    setBatches(listBatches());
-    setLoading(false);
+    listBatches().then(setBatches).finally(() => setLoading(false));
   }, []);
 
   const summary = useMemo(() => {

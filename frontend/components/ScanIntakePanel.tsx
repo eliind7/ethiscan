@@ -190,7 +190,7 @@ export default function ScanIntakePanel({
             org_number: s.organizationNumber || undefined,
           };
           const result = await scanSingle(input);
-          const historyEntry = addToHistory(result);
+          const historyEntry = await addToHistory(result);
 
           setBatchItems((prev) =>
             prev.map((e) => (e.id === itemId ? { ...e, status: "done", result, historyId: historyEntry.id } : e))
@@ -205,7 +205,7 @@ export default function ScanIntakePanel({
         }
       }
 
-      saveBatch(file.name, batchResults);
+      await saveBatch(file.name, batchResults);
       onBatchCompleted?.();
     } catch (error) {
       setParseError(error instanceof Error ? error.message : "Could not parse CSV file.");
