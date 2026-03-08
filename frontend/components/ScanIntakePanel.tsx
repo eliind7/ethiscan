@@ -127,7 +127,7 @@ export default function ScanIntakePanel({
   const [orgNumber, setOrgNumber] = useState("");
   const [isScanningList, setIsScanningList] = useState(false);
   const [parseError, setParseError] = useState<string | null>(null);
-  const [batchItems, setBatchItems] = useState<(BatchEntry & { id: string })[]>([]);
+  const [batchItems, setBatchItems] = useState<(BatchEntry & { id: string; historyId?: number })[]>([]);
 
   const completedCount = useMemo(
     () => batchItems.filter((item) => item.status === "done" || item.status === "error").length,
@@ -190,10 +190,10 @@ export default function ScanIntakePanel({
             org_number: s.organizationNumber || undefined,
           };
           const result = await scanSingle(input);
-          addToHistory(result);
+          const historyEntry = addToHistory(result);
 
           setBatchItems((prev) =>
-            prev.map((e) => (e.id === itemId ? { ...e, status: "done", result } : e))
+            prev.map((e) => (e.id === itemId ? { ...e, status: "done", result, historyId: historyEntry.id } : e))
           );
           batchResults[i] = { ...batchResults[i], status: "done", result };
         } catch (err) {
@@ -296,7 +296,7 @@ export default function ScanIntakePanel({
           <button
             type="submit"
             disabled={isSubmittingSingle}
-            className="rounded-xl bg-slate-900 px-5 py-3 text-sm font-semibold text-white transition hover:bg-slate-800 disabled:cursor-not-allowed disabled:opacity-50"
+            className="md:col-span-2 max-w-[200px] rounded-xl bg-slate-900 px-4 py-3 text-sm font-semibold text-white transition hover:bg-slate-800 disabled:cursor-not-allowed disabled:opacity-50"
           >
             {isSubmittingSingle ? "Running scan..." : "Run Sanctions Scan"}
           </button>
@@ -336,8 +336,8 @@ export default function ScanIntakePanel({
                 <span>{completedCount}/{batchItems.length} processed</span>
               </div>
               <div className="space-y-3">
-                {batchItems.map((item) => (
-                  <div key={item.id} className="rounded-xl border border-slate-200 bg-white px-4 py-3">
+                {batchItems.map((item) => {
+                  const inner = (
                     <div className="flex flex-wrap items-center justify-between gap-2">
                       <div>
                         <p className="font-semibold text-slate-900">{item.supplier_name}</p>
@@ -356,8 +356,21 @@ export default function ScanIntakePanel({
                         </span>
                       </div>
                     </div>
-                  </div>
-                ))}
+                  );
+                  return item.historyId ? (
+                    <Link
+                      key={item.id}
+                      href={`/scans/${item.historyId}`}
+                      className="block rounded-xl border border-slate-200 bg-white px-4 py-3 transition hover:border-cyan-300 hover:bg-cyan-50/30"
+                    >
+                      {inner}
+                    </Link>
+                  ) : (
+                    <div key={item.id} className="rounded-xl border border-slate-200 bg-white px-4 py-3">
+                      {inner}
+                    </div>
+                  );
+                })}
               </div>
             </div>
           ) : null}
