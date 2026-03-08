@@ -1,4 +1,9 @@
-from backend.scrapers.opensanctions import SanctionsMatch
+try:
+    # Supports `uvicorn backend.main:app` from repo root.
+    from backend.scrapers.opensanctions import SanctionsMatch
+except ModuleNotFoundError:
+    # Supports `uvicorn main:app` when cwd is `backend/`.
+    from scrapers.opensanctions import SanctionsMatch
 
 # Aggregate weights
 WEIGHT_DIRECT = 0.50

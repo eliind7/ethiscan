@@ -19,13 +19,15 @@ export default function ScanReportClient({ scanId }: ScanReportClientProps) {
   useEffect(() => {
     setLoading(true);
     setError(null);
-    const entry = getHistoryEntry(scanId);
-    if (entry) {
-      setResult(entry.result);
-    } else {
-      setError("Report was not found in local history.");
-    }
-    setLoading(false);
+    getHistoryEntry(scanId)
+      .then((entry) => {
+        if (entry) {
+          setResult(entry.result);
+        } else {
+          setError("Report was not found.");
+        }
+      })
+      .finally(() => setLoading(false));
   }, [scanId]);
 
   if (loading) {

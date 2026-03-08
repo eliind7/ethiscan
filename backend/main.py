@@ -7,18 +7,33 @@ load_dotenv(os.path.join(os.path.dirname(__file__), ".env"))
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
-from backend.models import SupplierInput, SupplierResult, EvidenceItem, SubScores, PersonScreened
-from backend.scrapers.opensanctions import search_sanctions, search_peps, SanctionsMatch
-from backend.scrapers.news import fetch_news, is_sanctions_relevant
-from backend.scrapers.llm import extract_signal
-from backend.scrapers.identity import resolve_identity
-from backend.scoring.scorer import compute_score
+try:
+    # Supports `uvicorn backend.main:app` from repo root.
+    from backend.models import SupplierInput, SupplierResult, EvidenceItem, SubScores, PersonScreened
+    from backend.scrapers.opensanctions import search_sanctions, search_peps, SanctionsMatch
+    from backend.scrapers.news import fetch_news, is_sanctions_relevant
+    from backend.scrapers.llm import extract_signal
+    from backend.scrapers.identity import resolve_identity
+    from backend.scoring.scorer import compute_score
+except ModuleNotFoundError:
+    # Supports `uvicorn main:app` when cwd is `backend/`.
+    from models import SupplierInput, SupplierResult, EvidenceItem, SubScores, PersonScreened
+    from scrapers.opensanctions import search_sanctions, search_peps, SanctionsMatch
+    from scrapers.news import fetch_news, is_sanctions_relevant
+    from scrapers.llm import extract_signal
+    from scrapers.identity import resolve_identity
+    from scoring.scorer import compute_score
 
 app = FastAPI(title="ethiscan", description="Supplier sanctions risk profiler")
 
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["http://localhost:3000"],
+    allow_origins=[
+        "http://localhost:3000",
+        "http://127.0.0.1:3000",
+    ],
+    # Allow local dev servers on alternate ports (e.g. 3001/5173).
+    allow_origin_regex=r"^https?://(localhost|127\.0\.0\.1)(:\d+)?$",
     allow_methods=["*"],
     allow_headers=["*"],
 )

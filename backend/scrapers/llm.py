@@ -2,7 +2,10 @@ import os
 import json
 from typing import Optional
 
-import anthropic
+try:
+    import anthropic
+except Exception:
+    anthropic = None
 
 MODEL = "claude-sonnet-4-6"
 
@@ -34,7 +37,14 @@ async def extract_signal(company_name: str, article: dict) -> Optional[dict]:
     Use Claude to extract a sanctions-relevant signal from a news article.
     Returns a signal dict or None if the article is not relevant.
     """
-    client = anthropic.AsyncAnthropic(api_key=os.getenv("ANTHROPIC_API_KEY"))
+    if anthropic is None:
+        return None
+
+    api_key = os.getenv("ANTHROPIC_API_KEY")
+    if not api_key:
+        return None
+
+    client = anthropic.AsyncAnthropic(api_key=api_key)
 
     user_message = f"""Company: {company_name}
 
